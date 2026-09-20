@@ -1,0 +1,31 @@
+.env
+.env.*
+!.env.example
+
+# Python build and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+*.egg-info/
+
+# JavaScript build artifacts
+node_modules/
+.next/
+.next-ai-gym/
+out/
+coverage/
+venv/
+
+# Local tooling
+.vscode/
+.idea/
+*.log
+Thumbs.db
+.DS_Store
+
+# Preserved local history from the previously nested frontend repository.
+frontend/.git-local-history-backup/

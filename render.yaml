@@ -1,0 +1,45 @@
+services:
+  - type: web
+    name: ai-gym-fitness-web
+    runtime: node
+    region: singapore
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm run start -- -H 0.0.0.0 -p $PORT
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22.17.0
+      - key: NEXT_PUBLIC_API_BASE_URL
+        value: /api/backend
+      - key: BACKEND_API_HOSTPORT
+        fromService:
+          name: ai-gym-fitness-api
+          type: web
+          property: hostport
+
+  - type: web
+    name: ai-gym-fitness-api
+    runtime: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt && pip install .
+    startCommand: sh backend/start-render.sh
+    healthCheckPath: /health
+    envVars:
+      - key: DEBUG
+        value: "false"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ai-gym-fitness-db
+          property: connectionString
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: MQTT_ENABLED
+        value: "false"
+
+databases:
+  - name: ai-gym-fitness-db
+    region: singapore
+    plan: free
+    databaseName: ai_gym

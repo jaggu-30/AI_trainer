@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: "Courier New", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes ai-buddy-standing-motion {
+  0%,
+  12%,
+  46%,
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  54%,
+  88% {
+    opacity: 0;
+    transform: scale(0.97) translateY(18px);
+  }
+}
+
+@keyframes ai-buddy-squat-motion {
+  0%,
+  12%,
+  46%,
+  100% {
+    opacity: 0;
+    transform: scale(1.03) translateY(-8px);
+  }
+  54%,
+  88% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.ai-buddy-standing {
+  animation: ai-buddy-standing-motion 3.6s ease-in-out infinite;
+}
+
+.ai-buddy-squatting {
+  animation: ai-buddy-squat-motion 3.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-buddy-standing,
+  .ai-buddy-squatting {
+    animation: none;
+  }
+
+  .ai-buddy-squatting {
+    opacity: 0;
+  }
+}
