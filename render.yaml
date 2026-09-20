@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: ai-gym-fitness-web
+    name: ai-trainer-web-jaggu30
     runtime: node
     region: singapore
     plan: free
@@ -12,14 +12,14 @@ services:
         value: 22.17.0
       - key: NEXT_PUBLIC_API_BASE_URL
         value: /api/backend
-      - key: BACKEND_API_HOSTPORT
-        fromService:
-          name: ai-gym-fitness-api
-          type: web
-          property: hostport
+      # Free Render web services cannot receive private-network traffic.
+      # The browser never calls this URL directly: the Next.js route proxy
+      # makes this server-to-server request, so CORS remains unnecessary.
+      - key: BACKEND_API_URL
+        value: https://ai-trainer-api-jaggu30.onrender.com/api/v1
 
   - type: web
-    name: ai-gym-fitness-api
+    name: ai-trainer-api-jaggu30
     runtime: python
     region: singapore
     plan: free
